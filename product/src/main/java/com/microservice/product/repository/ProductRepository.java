@@ -1,6 +1,6 @@
-package com.course.bdavance.repository;
+package com.microservice.product.repository;
 
-import com.course.bdavance.entity.Product;
+import com.microservice.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

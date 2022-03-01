@@ -1,4 +1,4 @@
-package com.course.bdavance.entity;
+package com.microservice.product.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
