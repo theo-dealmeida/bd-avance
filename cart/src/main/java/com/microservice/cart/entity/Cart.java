@@ -10,4 +10,8 @@ public class Cart {
     private Long id;
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> products;
+
+    public void addProduct(CartItem cartItem) {
+        products.add(cartItem);
+    }
 }
