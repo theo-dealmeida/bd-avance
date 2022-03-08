@@ -4,19 +4,18 @@
     <title>Microservice Client</title>
 </head>
 <body>
-<div class="container">
+<div>
     <h1>Microservice Client eCommerce</h1>
-    <div class="row">
-        <div th:each="product : ${product}" class="col-md-4 my-1">
-            <a th:href="@{|/product-detail/${product.id}|}">
-                <img th:src="${product.illustration}" class="card-img-top"/>
-                <p th:text="${product.name}"></p>
-            </a>
-            <a th:href="@{|/|}">
-                <p th:text="Return"></p>
-            </a>
-        </div>
-    </div>
+    <p th:text="${product.name}"></p>
+    <img th:src="${product.illustration}"/>
+    <form method="post">
+        <button type="submit" th:value="|/cart/${product.id}|">
+            Add to cart
+        </button>
+    </form>
+    <a th:href="@{|/|}">
+        <p th:text="Return"></p>
+    </a>
 </div>
 </body>
 </html>
