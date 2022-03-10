@@ -2,19 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Microservice Client</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
 </head>
 <body>
 <div>
-    <h1>Microservice Client eCommerce</h1>
-    <p th:text="${product.name}"></p>
-    <img style="width:400px" th:src="${product.illustration}"/>
-    <form method="post">
-        <button type="submit" th:value="|/cart/${product.id}|">
+    <div class="header">
+        <h1>Microservice Client eCommerce</h1>
+    </div>
+    <h1 th:text="${product.name}"></h1>
+    <div class="imageContainer">
+        <img class="imageDetail" th:src="${product.illustration}"/>
+    </div>
+    <form class="row" method="post">
+        <button class="buttonAddCart" th:value="|/cart/${product.id}|" type="submit">
             Add to cart
         </button>
     </form>
-    <a th:href="@{|/|}">
-        <p th:text="Return"></p>
+    <a class="buttonReturn" th:href="@{|/|}">
+        <p th:text="Retour"></p>
     </a>
 </div>
 </body>

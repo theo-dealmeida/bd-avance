@@ -1,17 +1,22 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <title>Microservice Client</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div>
-    <h1>Microservice Client eCommerce</h1>
+    <div class="header">
+        <h1>Microservice Client eCommerce</h1>
+    </div>
     <div class="row">
-        <div th:each="product : ${products}">
-            <a th:href="@{|/product-detail/${product.id}|}">
-                <img style="width:400px" th:src="${product.illustration}"/>
-                <p th:text="${product.name}"></p>
+        <div class="product" th:each="product : ${products}">
+            <a class="imageContainer" th:href="@{|/product-detail/${product.id}|}">
+                <img class="image" th:src="${product.illustration}"/>
             </a>
+            <div>
+                <h1 th:text="${product.name}"></h1>
+            </div>
         </div>
     </div>
 </div>
