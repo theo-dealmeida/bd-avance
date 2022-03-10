@@ -30,10 +30,11 @@ public class ClientController {
         model.addAttribute("products", products);
         return "index";
     }
+
     @RequestMapping("/product-detail/{id}")
-    public String product_detail(@PathVariable int id, Model model) {
-        List<ProductBean> products = msProductProxy.list();
-        model.addAttribute("product", products.get(id));
+    public String product_details(@PathVariable long id, Model model) {
+        Optional<ProductBean> product = msProductProxy.get(id);
+        model.addAttribute("product", product);
         return "product_detail";
     }
 

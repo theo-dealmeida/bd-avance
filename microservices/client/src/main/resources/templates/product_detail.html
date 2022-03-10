@@ -6,10 +6,10 @@
 <body>
 <div>
     <h1>Microservice Client eCommerce</h1>
-    <p th:text="${product.name}"></p>
-    <img style="width:400px" th:src="${product.illustration}"/>
+    <p th:text="${product.get.name}"></p>
+    <img style="width:400px" th:src="${product.get.illustration}"/>
     <form method="post">
-        <button type="submit" th:value="|/cart/${product.id}|">
+        <button type="submit" th:value="|/cart/${product.get.id}|">
             Add to cart
         </button>
     </form>
