@@ -8,4 +8,15 @@ public class CartBean {
     public CartBean(List<CartItemBean> products) {
         this.products = products;
     }
+
+    public List<CartItemBean> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CartItemBean> products) {
+        this.products = products;
+    }
+
+    public CartBean() {
+    }
 }
