@@ -9,7 +9,7 @@
     <div class="row">
         <div th:each="product : ${products}">
             <a th:href="@{|/product-detail/${product.id}|}">
-                <img th:src="${product.illustration}"/>
+                <img style="width:400px" th:src="${product.illustration}"/>
                 <p th:text="${product.name}"></p>
             </a>
         </div>

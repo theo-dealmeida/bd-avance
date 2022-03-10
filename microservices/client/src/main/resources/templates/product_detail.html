@@ -7,7 +7,7 @@
 <div>
     <h1>Microservice Client eCommerce</h1>
     <p th:text="${product.name}"></p>
-    <img th:src="${product.illustration}"/>
+    <img style="width:400px" th:src="${product.illustration}"/>
     <form method="post">
         <button type="submit" th:value="|/cart/${product.id}|">
             Add to cart
