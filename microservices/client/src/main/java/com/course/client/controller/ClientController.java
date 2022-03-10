@@ -59,7 +59,7 @@ public class ClientController {
     public String cart(@PathVariable long id, Model model) {
         Optional<CartBean> cart = msCartProxy.getCart(id);
         model.addAttribute("cart", cart);
-        return "cart";
+        return "cartDetail";
     }
 
     @PostMapping("/cart/{id}")

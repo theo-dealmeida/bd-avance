@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Microservice Client</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div>
+    <h1>Microservice Client eCommerce</h1>
+    <p th:text="${cart.present}"></p>
+    <p th:text="${cart.get.getProducts}"></p>
+</div>
+</body>
+</html>
