@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,17 +31,27 @@ public class ClientController {
         model.addAttribute("products", products);
         return "index";
     }
+
     @RequestMapping("/product-detail/{id}")
-    public String product_detail(@PathVariable int id, Model model) {
-        List<ProductBean> products = msProductProxy.list();
-        model.addAttribute("product", products.get(id));
+    public String product_details(@PathVariable long id, Model model) {
+        Optional<ProductBean> product = msProductProxy.get(id);
+        model.addAttribute("product", product);
         return "product_detail";
     }
 
-    @RequestMapping("/cart/")
+    @RequestMapping(value = "/cart")
     public String cart(Model model) {
-        ResponseEntity<CartBean> cart = msCartProxy.createNewCart(new CartBean((List<CartItemBean>) new CartItemBean(0L, 1)));
-        model.addAttribute("cart", cart);
+
+        List<CartItemBean> cartBeans = new ArrayList<>();
+        {
+            cartBeans.add(new CartItemBean(0L, 1));
+            cartBeans.add(new CartItemBean(1L, 1));
+        }
+        CartBean cast1 = new CartBean(cartBeans);
+
+        ResponseEntity<CartBean> cart = msCartProxy.createNewCart(cast1);
+        model.addAttribute("cart", cart.getBody());
+        model.addAttribute("status", cart.getStatusCodeValue());
         return "cart";
     }
 

@@ -14,10 +14,10 @@ import java.util.Optional;
 @FeignClient(name = "ms-cart", url = "localhost:8092")
 public interface MsCartProxy {
     @PostMapping(value = "/cart")
-    public ResponseEntity<CartBean> createNewCart(@RequestBody CartBean cartData);
+    ResponseEntity<CartBean> createNewCart(@RequestBody CartBean cartData);
     @GetMapping(value = "/cart/{id}")
-    public Optional<CartBean> getCart(@PathVariable long id);
+    Optional<CartBean> getCart(@PathVariable long id);
     @PostMapping(value = "/cart/{id}")
-    public ResponseEntity<CartItemBean> addProductToCart(@PathVariable Long id, @RequestBody CartItemBean cartItem);
+    ResponseEntity<CartItemBean> addProductToCart(@PathVariable Long id, @RequestBody CartItemBean cartItem);
 
 }
