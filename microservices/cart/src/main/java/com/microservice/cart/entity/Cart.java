@@ -14,4 +14,36 @@ public class Cart {
     public void addProduct(CartItem cartItem) {
         products.add(cartItem);
     }
+
+    public Cart(Long id, List<CartItem> products) {
+        this.id = id;
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<CartItem> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CartItem> products) {
+        this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", products=" + products +
+                '}';
+    }
+
+    public Cart() {
+    }
 }

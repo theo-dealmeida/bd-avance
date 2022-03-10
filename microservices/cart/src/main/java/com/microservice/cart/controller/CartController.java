@@ -5,11 +5,14 @@ import com.microservice.cart.entity.CartItem;
 import com.microservice.cart.repository.CartItemRepository;
 import com.microservice.cart.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Optional;
 
@@ -21,6 +24,8 @@ public class CartController {
 
     @Autowired
     CartItemRepository cartItemRepository;
+
+
 
     @PostMapping(value = "/cart")
     public ResponseEntity<Cart> createNewCart(@RequestBody Cart cartData) {
