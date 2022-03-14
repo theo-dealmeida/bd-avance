@@ -54,11 +54,7 @@ public class ClientController {
     }
 
     @PostMapping("/cart/{id}")
-    public String cart(@PathVariable long id, CartItemBean cartItem, Model model) {
+    public void cart(@PathVariable long id, CartItemBean cartItem) {
         msCartProxy.addProductToCart(id, cartItem);
-        Optional<ProductBean> product = msProductProxy.get(id);
-        model.addAttribute("product", product);
-        model.addAttribute("item", id);
-        return "product_detail";
     }
 }
