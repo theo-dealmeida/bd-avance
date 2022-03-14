@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +40,12 @@ public class ClientController {
     @RequestMapping(value = "/cart")
     public String cart(Model model) {
 
-        List<CartItemBean> cartBeans = new ArrayList<>();
-        {
-            cartBeans.add(new CartItemBean(0L, 1));
-            cartBeans.add(new CartItemBean(1L, 1));
-        }
-        CartBean cast1 = new CartBean(cartBeans);
+       List<CartItemBean> cartBeans = new ArrayList<>();
+       {
+           cartBeans.add(new CartItemBean(0L, 1));
+           cartBeans.add(new CartItemBean(1L, 1));
+       }
+       CartBean cast1 = new CartBean(cartBeans);
 
         ResponseEntity<CartBean> cart = msCartProxy.createNewCart(cast1);
         model.addAttribute("cart", cart.getBody());
@@ -55,7 +53,7 @@ public class ClientController {
         return "cart";
     }
 
-    @RequestMapping("/cart/{id}")
+    @GetMapping("/cart/{id}")
     public String cart(@PathVariable long id, Model model) {
         Optional<CartBean> cart = msCartProxy.getCart(id);
         model.addAttribute("cart", cart);
@@ -63,8 +61,10 @@ public class ClientController {
     }
 
     @PostMapping("/cart/{id}")
-    public String cart(@PathVariable int id, Model model) {
-        model.addAttribute("cart", id);
+    public String cart(@PathVariable long id, CartItemBean cartItem, Model model) {
+        msCartProxy.addProductToCart(id, cartItem);
+        Optional<ProductBean> product = msProductProxy.get(id);
+        model.addAttribute("product", product);
         return "product_detail";
     }
 }

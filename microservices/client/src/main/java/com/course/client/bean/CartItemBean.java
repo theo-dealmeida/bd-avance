@@ -27,4 +27,12 @@ public class CartItemBean {
 
     public CartItemBean() {
     }
+
+    @Override
+    public String toString() {
+        return "CartItemBean{" +
+                "productId=" + productId +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
