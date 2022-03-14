@@ -37,17 +37,9 @@ public class ClientController {
         return "product_detail";
     }
 
-    @RequestMapping(value = "/cart")
+    @PostMapping(value = "/cart")
     public String cart(Model model) {
-
-       List<CartItemBean> cartBeans = new ArrayList<>();
-       {
-           cartBeans.add(new CartItemBean(0L, 1));
-           cartBeans.add(new CartItemBean(1L, 1));
-       }
-       CartBean cast1 = new CartBean(cartBeans);
-
-        ResponseEntity<CartBean> cart = msCartProxy.createNewCart(cast1);
+        ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
         model.addAttribute("cart", cart.getBody());
         model.addAttribute("status", cart.getStatusCodeValue());
         return "cart";

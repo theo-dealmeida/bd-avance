@@ -14,7 +14,9 @@
         <img class="imageDetail" th:src="${product.get.illustration}"/>
     </div>
     <form th:action="|/cart/${product.get.id}|" class="row" method="post">
+        <p>Quantité</p>
         <input type="number" value="1" id="quantity" name="quantity">
+        <p>Id produit</p>
         <input type="number" value="1" id="productId" name="productId" th:value="${product.get.id}">
         <button class="buttonAddCart" type="submit">
             Add to cart

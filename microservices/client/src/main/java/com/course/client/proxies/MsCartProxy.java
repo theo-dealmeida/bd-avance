@@ -14,7 +14,7 @@ import java.util.Optional;
 @FeignClient(name = "ms-cart", url = "localhost:8092")
 public interface MsCartProxy {
     @PostMapping(value = "/cart")
-    ResponseEntity<CartBean> createNewCart(@RequestBody CartBean cartData);
+    ResponseEntity<CartBean> createNewCart();
     @GetMapping(value = "/cart/{id}")
     Optional<CartBean> getCart(@PathVariable long id);
     @PostMapping(value = "/cart/{id}")
