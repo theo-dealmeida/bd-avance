@@ -34,10 +34,11 @@ public class ClientController {
     public String product_details(@PathVariable long id, Model model) {
         Optional<ProductBean> product = msProductProxy.get(id);
         model.addAttribute("product", product);
+        model.addAttribute("item", null);
         return "product_detail";
     }
 
-    @PostMapping(value = "/cart")
+    @GetMapping(value = "/cart")
     public String cart(Model model) {
         ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
         model.addAttribute("cart", cart.getBody());
@@ -57,6 +58,7 @@ public class ClientController {
         msCartProxy.addProductToCart(id, cartItem);
         Optional<ProductBean> product = msProductProxy.get(id);
         model.addAttribute("product", product);
+        model.addAttribute("item", id);
         return "product_detail";
     }
 }

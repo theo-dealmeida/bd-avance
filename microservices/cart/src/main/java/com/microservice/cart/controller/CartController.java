@@ -28,7 +28,7 @@ public class CartController {
 
 
     @PostMapping(value = "/cart")
-    public ResponseEntity<Cart> createNewCart(@RequestBody Cart cartData) {
+    public ResponseEntity<Cart> createNewCart() {
         Cart cart = cartRepository.save(new Cart());
         if (cart == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't create a new cart");
