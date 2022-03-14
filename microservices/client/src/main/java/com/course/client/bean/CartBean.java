@@ -19,4 +19,11 @@ public class CartBean {
 
     public CartBean() {
     }
+
+    @Override
+    public String toString() {
+        return "CartBean{" +
+                "products=" + products.toString() +
+                '}';
+    }
 }
