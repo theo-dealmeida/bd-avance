@@ -23,7 +23,7 @@ public class ClientController {
     @Autowired
     private MsCartProxy msCartProxy;
 
-    private int CartId = 0;
+    private long CartId = 0;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -37,6 +37,7 @@ public class ClientController {
         Optional<ProductBean> product = msProductProxy.get(id);
         model.addAttribute("product", product);
         model.addAttribute("item", null);
+        model.addAttribute("cartId", CartId);
         return "product_detail";
     }
 
@@ -50,7 +51,7 @@ public class ClientController {
         }
         else {
             model.addAttribute("cartMessage", "You already have a cart");
-            model.addAttribute("CartId", CartId);
+            model.addAttribute("cartId", CartId);
         }
 
         return "cart";
@@ -58,13 +59,24 @@ public class ClientController {
 
     @GetMapping("/cart/{id}")
     public String cart(@PathVariable long id, Model model) {
-        Optional<CartBean> cart = msCartProxy.getCart(id);
-        model.addAttribute("cart", cart);
+        if(id != CartId){
+            model.addAttribute("cartMessage", "Tu ne peux pas voir ce cart");
+            model.addAttribute("cart", null);
+        }
+        else{
+            model.addAttribute("cartMessage", "Voici ton cart");
+            Optional<CartBean> cart = msCartProxy.getCart(id);
+            model.addAttribute("cartToString", cart.toString());
+        }
         return "cartDetail";
     }
 
     @PostMapping("/cart/{id}")
-    public void cart(@PathVariable long id, CartItemBean cartItem) {
+    public String cart(@PathVariable long id, CartItemBean cartItem, Model model) {
         msCartProxy.addProductToCart(id, cartItem);
+        model.addAttribute("cartMessage", "Voici ton cart");
+        Optional<CartBean> cart = msCartProxy.getCart(id);
+        model.addAttribute("cartToString", cart.toString());
+        return "cartDetail";
     }
 }

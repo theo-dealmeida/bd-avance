@@ -13,7 +13,7 @@
     <div class="imageContainer">
         <img class="imageDetail" th:src="${product.get.illustration}"/>
     </div>
-    <form th:action="@{'/cart/{id}'(id=${product.get.id})}" class="row" method="post">
+    <form th:action="@{'/cart/{id}'(id=${cartId})}" class="row" method="post">
         <p>Quantité</p>
         <input type="number" value="1" id="quantity" name="quantity">
         <p>Id produit</p>
