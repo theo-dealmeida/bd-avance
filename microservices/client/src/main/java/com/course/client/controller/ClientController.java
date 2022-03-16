@@ -23,6 +23,8 @@ public class ClientController {
     @Autowired
     private MsCartProxy msCartProxy;
 
+    private int CartId = 0;
+
     @RequestMapping("/")
     public String index(Model model) {
         List<ProductBean> products = msProductProxy.list();
@@ -40,9 +42,17 @@ public class ClientController {
 
     @GetMapping(value = "/cart")
     public String cart(Model model) {
-        ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
-        model.addAttribute("cart", cart.getBody());
-        model.addAttribute("status", cart.getStatusCodeValue());
+        if (CartId == 0){
+            ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
+            model.addAttribute("cartId", cart.getBody().getId());
+            model.addAttribute("cartMessage", "Cart created");
+            CartId = cart.getBody().getId();
+        }
+        else {
+            model.addAttribute("cartMessage", "You already have a cart");
+            model.addAttribute("CartId", CartId);
+        }
+
         return "cart";
     }
 
