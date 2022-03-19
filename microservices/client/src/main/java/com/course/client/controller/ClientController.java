@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class ClientController {
     }
 
     @GetMapping(value = "/cart")
-    public String cart(Model model) {
+    public RedirectView cart(Model model) {
         if (CartId == 0){
             ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
             model.addAttribute("cartId", cart.getBody().getId());
@@ -58,8 +59,8 @@ public class ClientController {
             model.addAttribute("cartMessage", "You already have a cart");
             model.addAttribute("cartId", CartId);
         }
-
-        return "cart";
+        return new RedirectView("cart/" + CartId);
+        //return "cart";
     }
 
     @GetMapping("/cart/{id}")
