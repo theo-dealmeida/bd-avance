@@ -73,10 +73,16 @@ public class ClientController {
 
     @PostMapping("/cart/{id}")
     public String cart(@PathVariable long id, CartItemBean cartItem, Model model) {
-        msCartProxy.addProductToCart(id, cartItem);
-        model.addAttribute("cartMessage", "Voici ton cart");
-        Optional<CartBean> cart = msCartProxy.getCart(id);
-        model.addAttribute("cartToString", cart.toString());
+        if(CartId == 0){
+            model.addAttribute("cartMessage", "Tu n'as pas encore de cart");
+            model.addAttribute("cart", null);
+        }
+        else{
+            msCartProxy.addProductToCart(id, cartItem);
+            model.addAttribute("cartMessage", "Voici ton cart");
+            Optional<CartBean> cart = msCartProxy.getCart(id);
+            model.addAttribute("cartToString", cart.toString());
+        }
         return "cartDetail";
     }
 }
