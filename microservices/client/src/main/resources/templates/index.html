@@ -9,6 +9,9 @@
     <div class="header">
         <h1>Microservice Client eCommerce</h1>
     </div>
+    <a class="buttonCreateCart" th:href="@{|/cart|}">
+        <p text="Creer un cart"></p>
+    </a>
     <div class="row">
         <div class="product" th:each="product : ${products}">
             <a class="imageContainer" th:href="@{|/product-detail/${product.id}|}">
