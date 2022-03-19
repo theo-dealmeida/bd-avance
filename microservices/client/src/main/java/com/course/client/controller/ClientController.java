@@ -2,8 +2,10 @@ package com.course.client.controller;
 
 import com.course.client.bean.CartBean;
 import com.course.client.bean.CartItemBean;
+import com.course.client.bean.OrderBean;
 import com.course.client.bean.ProductBean;
 import com.course.client.proxies.MsCartProxy;
+import com.course.client.proxies.MsOrderProxy;
 import com.course.client.proxies.MsProductProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class ClientController {
 
     @Autowired
     private MsCartProxy msCartProxy;
+
+    @Autowired
+    private MsOrderProxy msOrderProxy;
 
     private long CartId = 0;
 
@@ -78,5 +83,13 @@ public class ClientController {
         Optional<CartBean> cart = msCartProxy.getCart(id);
         model.addAttribute("cartToString", cart.toString());
         return "cartDetail";
+    }
+
+    @GetMapping(value = "/order")
+    public String order(Model model) {
+            ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder();
+            model.addAttribute("orderId", order.getBody().getId());
+            model.addAttribute("orderMessage", "Order created");
+        return "order";
     }
 }

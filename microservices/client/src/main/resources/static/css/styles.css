@@ -63,10 +63,13 @@ button.buttonAddCart:active{
     background-color: steelblue;
 }
 
+a {
+    background-color: lightgrey;
+}
+
 a.buttonReturn {
     position: absolute;
     top: 125px;
-    background-color: lightgrey;
 }
 
 
