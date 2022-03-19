@@ -91,11 +91,11 @@ public class ClientController {
         return "cartDetail";
     }
 
-    @GetMapping(value = "/order")
-    public String order(Model model) {
-            ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder();
-            model.addAttribute("orderId", order.getBody().getId());
-            model.addAttribute("orderMessage", "Order created");
+    @GetMapping(value = "/order/{cartId}")
+    public String order(@PathVariable long cartId, Model model) {
+        ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder(cartId);
+        model.addAttribute("orderId", order.getBody().getId());
+        model.addAttribute("orderMessage", "Order created");
         return "order";
     }
 }

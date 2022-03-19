@@ -11,6 +11,10 @@ public class OrderBean {
         this.id = id;
     }
 
+    public OrderBean(long cartId) {
+        this.cartId = cartId;
+    }
+
     public long getCartId() {
         return cartId;
     }

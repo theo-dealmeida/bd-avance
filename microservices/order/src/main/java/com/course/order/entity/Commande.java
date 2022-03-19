@@ -3,20 +3,24 @@ package com.course.order.entity;
 import javax.persistence.*;
 
 @Entity
-public class Order {
+public class Commande {
     @Id
     @GeneratedValue
     private Long id;
     private Long cartId;
     private Double total;
 
-    public Order(Long id, Long cartId, Double total) {
+    public Commande(Long id, Long cartId, Double total) {
         this.id = id;
         this.cartId = cartId;
         this.total = total;
     }
 
-    public Order() {
+    public Commande(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public Commande() {
     }
 
     public Long getId() {
