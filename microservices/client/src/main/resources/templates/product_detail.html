@@ -14,9 +14,9 @@
     <div class="imageContainer">
         <img class="imageDetail" th:src="${product.get.illustration}"/>
     </div>
-    <form th:action="@{'/cart/{id}/product/{productId}'(id=${cartId}, productId=${productId})}" class="row" method="post">
+    <form th:action="@{'/cart/{id}/product/{productId}'(id=${cartId}, productId=${productId}, quantity=${quantity})}" class="row" method="post">
         <p>Quantité</p>
-        <input type="number" value="1" id="quantity" name="quantity">
+        <input type="number" th:value="${quantity}" id="quantity" name="quantity">
         <button class="buttonAddCart" type="submit">
             Add to cart
         </button>
