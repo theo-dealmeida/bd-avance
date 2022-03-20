@@ -21,6 +21,8 @@
                 <h1 th:text="${product.name}"></h1>
             </div>
         </div>
+    </div>
+    <div>
         <p th:text="${'Prix total : ' + orderTotal + '€'}"></p>
         <a th:href="@{|/order/done/${cartId}|}">
             Confirmer commande

@@ -45,7 +45,6 @@ public class ClientController {
         model.addAttribute("productId", id);
         model.addAttribute("item", null);
         model.addAttribute("cartId", CartId);
-        model.addAttribute("quantity", 0);
         return "product_detail";
     }
 
@@ -86,10 +85,13 @@ public class ClientController {
     }
 
     @PostMapping("/cart/{idCart}/product/{idProduct}")
-    public RedirectView cart(@PathVariable long idCart, @PathVariable long idProduct, @RequestBody Integer quantity, Model model) {
+    public RedirectView cart(@PathVariable long idCart, @PathVariable long idProduct, Integer quantity, Model model) {
         if(CartId == 0){
             model.addAttribute("cartMessage", "Tu n'as pas encore de cart");
             model.addAttribute("cart", null);
+        }
+        else if (quantity == 0) {
+            model.addAttribute("cartMessage", "Tu ne peux pas ajouter 0 fois ce produit");
         }
         else{
             CartItemBean cartItemBean = new CartItemBean(idProduct, quantity);
