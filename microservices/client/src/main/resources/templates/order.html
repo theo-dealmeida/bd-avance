@@ -13,7 +13,6 @@
         <p th:text="Home"></p>
     </a>
     <div class="row">
-        <p th:text="${orderCart}"></p>
         <div class="product" th:each="product : ${orderProducts}">
             <div class="imageContainer">
                 <img class="image" th:src="${product.illustration}"/>
