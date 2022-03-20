@@ -10,23 +10,23 @@
         <h1>Microservice Client eCommerce</h1>
     </div>
     <p th:text="${cartMessage}"></p>
-    <p th:text="${cartToString}"></p>
-    <p th:text="${productsInCart}"></p>
     <a th:href="@{|/order/${cartId}|}">
         Passer commande
     </a>
 </div>
-<a class="buttonReturn" th:href="@{|/|}">
-    <p th:text="Home"></p>
+<br>
+<br>
+<br>
+<a th:href="@{|/|}">
+    Home
 </a>
 
     <div class="row">
-        <div th:each="product : ${productsInCart}" class="col-md-2 my-1">
-            <p>
+        <div th:each="product : ${productsInCart}" style="white-space: pre-line">
+            <p >
                 <span th:text="${'Nom: ' + product.name}"></span>
                 <span th:text="${' Prix unitaire: ' + product.price+ '€'}"></span>
             </p>
-
         </div>
     </div>
     <div>

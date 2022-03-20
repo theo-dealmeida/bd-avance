@@ -42,6 +42,7 @@ public class ClientController {
     public String product_details(@PathVariable long id, Model model) {
         Optional<ProductBean> product = msProductProxy.get(id);
         model.addAttribute("product", product);
+        model.addAttribute("productId", id);
         model.addAttribute("item", null);
         model.addAttribute("cartId", CartId);
         return "product_detail";
@@ -83,20 +84,18 @@ public class ClientController {
         return "cartDetail";
     }
 
-    @PostMapping("/cart/{id}")
-    public String cart(@PathVariable long id, CartItemBean cartItem, Model model) {
+    @PostMapping("/cart/{idCart}/product/{idProduct}")
+    public RedirectView cart(@PathVariable long idCart, @PathVariable long idProduct, Model model) {
         if(CartId == 0){
             model.addAttribute("cartMessage", "Tu n'as pas encore de cart");
             model.addAttribute("cart", null);
         }
         else{
-            msCartProxy.addProductToCart(id, cartItem);
-            model.addAttribute("cartMessage", "Voici ton cart");
-            Optional<CartBean> cart = msCartProxy.getCart(id);
-            model.addAttribute("cartToString", cart.toString());
-            model.addAttribute("cartId", cart.get().getId());
+            CartItemBean cartItemBean = new CartItemBean(idProduct, 1);
+            msCartProxy.addProductToCart(idCart, cartItemBean);
+            model.addAttribute("cartId", CartId);
         }
-        return "cartDetail";
+        return new RedirectView("/cart/" + CartId);
     }
 
     @GetMapping(value = "/order/{cartId}")
