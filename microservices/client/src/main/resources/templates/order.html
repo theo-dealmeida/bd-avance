@@ -22,7 +22,7 @@
             </div>
         </div>
         <p th:text="${'Prix total : ' + orderTotal + '€'}"></p>
-        <a th:href="@{/order/done}">
+        <a th:href="@{|/order/done/${cartId}|}">
             Confirmer commande
         </a>
     </div>

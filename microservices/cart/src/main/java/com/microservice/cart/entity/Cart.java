@@ -36,6 +36,10 @@ public class Cart {
         this.products = products;
     }
 
+    public void wipeProducts() {
+        this.products = null;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
