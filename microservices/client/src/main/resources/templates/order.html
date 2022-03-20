@@ -9,8 +9,10 @@
     <div class="header">
         <h1>Microservice Client eCommerce</h1>
     </div>
-    <p th:text="${orderCart}"></p>
-    <p th:text="${orderTotal}"></p>
+    <div class="row">
+        <p th:text="${orderCart}"></p>
+        <p th:text="${'Prix total :' + orderTotal}"></p>
+    </div>
 </div>
 </body>
 </html>
