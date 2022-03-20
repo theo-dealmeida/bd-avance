@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -42,6 +43,16 @@ public class CartController {
         if (!cart.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't get cart");
         return cart;
+    }
+
+    @GetMapping(value = "/wipe/{id}")
+    public ResponseEntity<Boolean> wipeCart(@PathVariable Long id)
+    {
+        Cart cart = cartRepository.getById(id);
+
+            cart.wipeProducts();
+        cartRepository.save(cart);
+        return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/cart/{id}")

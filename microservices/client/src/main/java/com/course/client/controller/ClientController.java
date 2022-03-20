@@ -117,12 +117,15 @@ public class ClientController {
         model.addAttribute("orderCart", cart);
         model.addAttribute("orderTotal", order.getBody().getTotal());
         model.addAttribute("orderProducts", cartProducts);
+        model.addAttribute("cartId", Integer.toString(cart.get().getId()));
 
         return "order";
     }
 
-    @RequestMapping("/order/done")
-    public String orderDone() {
+    @RequestMapping("/order/done/{id}")
+    public String orderDone(@PathVariable long id) {
+        msCartProxy.wipeCart(id);
+
         return "orderDone";
     }
 }
