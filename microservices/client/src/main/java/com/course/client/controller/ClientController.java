@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class ClientController {
@@ -49,19 +48,12 @@ public class ClientController {
     }
 
     @GetMapping(value = "/cart")
-    public RedirectView cart(Model model) {
+    public RedirectView cart() {
         if (CartId == 0){
             ResponseEntity<CartBean> cart = msCartProxy.createNewCart();
-            model.addAttribute("cartId", cart.getBody().getId());
-            model.addAttribute("cartMessage", "Cart created");
             CartId = cart.getBody().getId();
         }
-        else {
-            model.addAttribute("cartMessage", "You already have a cart");
-            model.addAttribute("cartId", CartId);
-        }
         return new RedirectView("cart/" + CartId);
-        //return "cart";
     }
 
     @GetMapping("/cart/{id}")
@@ -71,9 +63,21 @@ public class ClientController {
             model.addAttribute("cart", null);
         }
         else{
-            model.addAttribute("cartMessage", "Voici ton cart");
+            double priceTotal = 0.0;
+            List<ProductBean> productsInCart = new ArrayList<>();
             Optional<CartBean> cart = msCartProxy.getCart(id);
+            for (CartItemBean cartItemBean: cart.get().getProducts()) {
+                Optional<ProductBean> productBean =  msProductProxy.get(cartItemBean.getProductId());
+                if(productBean.isPresent()) {
+                    productsInCart.add(productBean.get());
+                    priceTotal += productBean.get().price * Double.valueOf(cartItemBean.getQuantity());
+                }
+            }
+            model.addAttribute("cartMessage", "Voici ton cart");
             model.addAttribute("cartToString", cart.toString());
+            model.addAttribute("cart", cart.get());
+            model.addAttribute("priceTotal", priceTotal);
+            model.addAttribute("productsInCart", productsInCart);
             model.addAttribute("cartId", cart.get().getId());
         }
         return "cartDetail";

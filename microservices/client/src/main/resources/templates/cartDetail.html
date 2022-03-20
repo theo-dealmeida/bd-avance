@@ -11,6 +11,7 @@
     </div>
     <p th:text="${cartMessage}"></p>
     <p th:text="${cartToString}"></p>
+    <p th:text="${productsInCart}"></p>
     <a th:href="@{|/order/${cartId}|}">
         Passer commande
     </a>
@@ -18,5 +19,21 @@
 <a class="buttonReturn" th:href="@{|/|}">
     <p th:text="Home"></p>
 </a>
+
+    <div class="row">
+        <div th:each="product : ${productsInCart}" class="col-md-2 my-1">
+            <p>
+                <span th:text="${'Nom: ' + product.name}"></span>
+                <span th:text="${' Prix unitaire: ' + product.price+ '€'}"></span>
+            </p>
+
+        </div>
+    </div>
+    <div>
+        <br>
+        <p th:text="${'Prix total : '+ priceTotal+ '€'}"></p>
+    </div>
+
+
 </body>
 </html>

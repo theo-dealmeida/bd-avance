@@ -10,6 +10,7 @@
         <h1>Microservice Client eCommerce</h1>
     </div>
     <h1 th:text="${product.get.name}"></h1>
+    <h2 th:text="${product.get.price} + ' €'"></h2>
     <div class="imageContainer">
         <img class="imageDetail" th:src="${product.get.illustration}"/>
     </div>
