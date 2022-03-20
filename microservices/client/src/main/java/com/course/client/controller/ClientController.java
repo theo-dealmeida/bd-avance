@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ClientController {
@@ -73,6 +74,7 @@ public class ClientController {
             model.addAttribute("cartMessage", "Voici ton cart");
             Optional<CartBean> cart = msCartProxy.getCart(id);
             model.addAttribute("cartToString", cart.toString());
+            model.addAttribute("cartId", cart.get().getId());
         }
         return "cartDetail";
     }
@@ -88,15 +90,26 @@ public class ClientController {
             model.addAttribute("cartMessage", "Voici ton cart");
             Optional<CartBean> cart = msCartProxy.getCart(id);
             model.addAttribute("cartToString", cart.toString());
+            model.addAttribute("cartId", cart.get().getId());
         }
         return "cartDetail";
     }
 
     @GetMapping(value = "/order/{cartId}")
     public String order(@PathVariable long cartId, Model model) {
-        ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder(cartId);
+        Optional<CartBean> cart = msCartProxy.getCart(cartId);
+        Double total = 0.00;
+        for (CartItemBean cartItem : cart.get().getProducts()) {
+            for (int i=0; i<cartItem.getQuantity()-1; i++) {
+                total += msProductProxy.get(cartItem.getProductId()).get().price;
+            }
+        }
+        ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder(cartId, total);
         model.addAttribute("orderId", order.getBody().getId());
         model.addAttribute("orderMessage", "Order created");
+        model.addAttribute("orderCart", cart);
+        model.addAttribute("orderTotal", order.getBody().getTotal());
+
         return "order";
     }
 }

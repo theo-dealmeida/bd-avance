@@ -6,10 +6,12 @@
 </head>
 <body>
 <div>
-    <h1>Microservice Client eCommerce</h1>
+    <div class="header">
+        <h1>Microservice Client eCommerce</h1>
+    </div>
     <p th:text="${cartMessage}"></p>
     <p th:text="${cartToString}"></p>
-    <a th:href="@{/order/cart.id}">
+    <a th:href="@{|/order/${cartId}|}">
         Passer commande
     </a>
 </div>

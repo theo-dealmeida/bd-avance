@@ -17,8 +17,8 @@ public class CommandeController {
     CommandeRepository orderRepository;
 
     @PostMapping(value = "/order/{cartId}")
-    public ResponseEntity<Commande> createNewOrder(@PathVariable Long cartId) {
-        Commande order = orderRepository.save(new Commande(cartId));
+    public ResponseEntity<Commande> createNewOrder(@PathVariable Long cartId, @RequestBody Double total) {
+        Commande order = orderRepository.save(new Commande(cartId, total));
         if (order == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't create order");
         return new ResponseEntity<Commande>(order, HttpStatus.CREATED);

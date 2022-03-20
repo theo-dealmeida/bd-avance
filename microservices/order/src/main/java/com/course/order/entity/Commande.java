@@ -20,6 +20,11 @@ public class Commande {
         this.cartId = cartId;
     }
 
+    public Commande(Long cartId, Double total) {
+        this.cartId = cartId;
+        this.total = total;
+    }
+
     public Commande() {
     }
 
