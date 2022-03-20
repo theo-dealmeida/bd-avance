@@ -102,10 +102,13 @@ public class ClientController {
     @GetMapping(value = "/order/{cartId}")
     public String order(@PathVariable long cartId, Model model) {
         Optional<CartBean> cart = msCartProxy.getCart(cartId);
-        Double total = 0.00;
+        List<ProductBean> cartProducts = new ArrayList<>();
+        double total = 0.00;
         for (CartItemBean cartItem : cart.get().getProducts()) {
-            for (int i=0; i<cartItem.getQuantity()-1; i++) {
-                total += msProductProxy.get(cartItem.getProductId()).get().price;
+                Optional<ProductBean> productBean = msProductProxy.get(cartItem.getProductId());
+            if(productBean.isPresent()) {
+                cartProducts.add(productBean.get());
+                total += productBean.get().price * Double.valueOf(cartItem.getQuantity());
             }
         }
         ResponseEntity<OrderBean> order = msOrderProxy.createNewOrder(cartId, total);
@@ -113,7 +116,13 @@ public class ClientController {
         model.addAttribute("orderMessage", "Order created");
         model.addAttribute("orderCart", cart);
         model.addAttribute("orderTotal", order.getBody().getTotal());
+        model.addAttribute("orderProducts", cartProducts);
 
         return "order";
+    }
+
+    @RequestMapping("/order/done")
+    public String orderDone() {
+        return "orderDone";
     }
 }
